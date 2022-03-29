@@ -1,0 +1,144 @@
+TARGET = server
+
+BUILD_PRX      = 1
+PSP_FW_VERSION = 660
+PRX_EXPORTS    = exports.exp
+
+USE_NEWLIB_LIBC = 1
+#USE_PSPSDK_LIBC = 1
+
+SRCS=
+SRCS_C=
+SRCS+=./agrunt.cpp 
+SRCS+=./airtank.cpp
+SRCS+=./aflock.cpp
+SRCS+=./animating.cpp
+SRCS+=./animation.cpp
+SRCS+=./apache.cpp
+SRCS+=./barnacle.cpp
+SRCS+=./barney.cpp
+SRCS+=./bigmomma.cpp
+SRCS+=./bloater.cpp
+SRCS+=./bmodels.cpp
+SRCS+=./bullsquid.cpp
+SRCS+=./buttons.cpp
+SRCS+=./cbase.cpp
+SRCS+=./client.cpp
+SRCS+=./combat.cpp
+SRCS+=./controller.cpp
+SRCS+=./crossbow.cpp
+SRCS+=./crowbar.cpp
+SRCS+=./defaultai.cpp
+SRCS+=./doors.cpp
+SRCS+=./effects.cpp
+SRCS+=./egon.cpp
+SRCS+=./explode.cpp
+SRCS+=./flyingmonster.cpp
+SRCS+=./func_break.cpp
+SRCS+=./func_tank.cpp
+SRCS+=./game.cpp
+SRCS+=./gamerules.cpp
+SRCS+=./gargantua.cpp
+SRCS+=./gauss.cpp
+SRCS+=./genericmonster.cpp
+SRCS+=./ggrenade.cpp
+SRCS+=./globals.cpp
+SRCS+=./glock.cpp
+SRCS+=./gman.cpp
+SRCS+=./h_ai.cpp
+SRCS+=./h_battery.cpp
+SRCS+=./h_cycler.cpp
+SRCS+=./h_cine.cpp
+SRCS+=./h_export.cpp
+SRCS+=./handgrenade.cpp
+SRCS+=./hassassin.cpp
+SRCS+=./headcrab.cpp
+SRCS+=./healthkit.cpp
+SRCS+=./hgrunt.cpp
+SRCS+=./hornet.cpp
+SRCS+=./hornetgun.cpp
+SRCS+=./houndeye.cpp
+SRCS+=./ichthyosaur.cpp
+SRCS+=./islave.cpp
+SRCS+=./items.cpp
+SRCS+=./leech.cpp
+SRCS+=./lights.cpp
+SRCS+=./maprules.cpp
+SRCS+=./monstermaker.cpp
+SRCS+=./monsters.cpp
+SRCS+=./monsterstate.cpp
+SRCS+=./mortar.cpp
+SRCS+=./mp5.cpp
+SRCS+=./multiplay_gamerules.cpp
+SRCS+=./nihilanth.cpp
+SRCS+=./nodes.cpp
+SRCS+=./observer.cpp
+SRCS+=./osprey.cpp
+SRCS+=./pathcorner.cpp
+SRCS+=./plane.cpp
+SRCS+=./plats.cpp
+SRCS+=./player.cpp
+SRCS+=./playermonster.cpp
+SRCS+=./python.cpp
+SRCS+=./rat.cpp
+SRCS+=./roach.cpp
+SRCS+=./rpg.cpp
+SRCS+=./satchel.cpp
+SRCS+=./schedule.cpp
+SRCS+=./scientist.cpp
+SRCS+=./scripted.cpp
+SRCS+=./shotgun.cpp
+SRCS+=./singleplay_gamerules.cpp
+SRCS+=./skill.cpp
+SRCS+=./sound.cpp
+SRCS+=./soundent.cpp
+SRCS+=./spectator.cpp
+SRCS+=./squadmonster.cpp
+SRCS+=./squeakgrenade.cpp
+SRCS+=./subs.cpp
+SRCS+=./talkmonster.cpp
+SRCS+=./teamplay_gamerules.cpp
+SRCS+=./tentacle.cpp
+SRCS+=./tempmonster.cpp
+SRCS+=./triggers.cpp
+SRCS+=./tripmine.cpp
+SRCS+=./turret.cpp
+SRCS+=./util.cpp
+SRCS+=./weapons.cpp
+SRCS+=./world.cpp
+SRCS+=./xen.cpp
+SRCS+=./zombie.cpp
+SRCS_C+=../pm_shared/pm_debug.c
+SRCS_C+=../pm_shared/pm_math.c
+SRCS_C+=../pm_shared/pm_shared.c
+#SRCS+=../game_shared/voice_gamemgr.cpp
+SRCS_C+=../utils/psp/crtbegin.c
+SRCS_C+=../utils/psp/crtend.c
+SRCS+=../utils/psp/server_psp.cpp
+
+OBJS = $(SRCS:.cpp=.o) $(SRCS_C:.c=.o)
+
+INCDIR   = . wpn_shared ../common ../engine/common ../engine ../public ../pm_shared ../game_shared
+LIBS     = -lstdc++ -lm -lpspuser
+
+DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf \
+	-D_vsnprintf=vsnprintf -DCLIENT_WEAPONS=1 -DNO_VOICEGAMEMGR -D__PSP__
+CFLAGS  = -G0 -g -O3 -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
+	-Werror=vla -Werror=tautological-compare -Werror=duplicated-cond \
+	-Werror=bool-compare -Werror=bool-operation -Wstrict-aliasing
+#CFLAGS  += -fsigned-char
+
+CFLAGS  += $(DEFINES)
+CXXFLAGS = $(CFLAGS) -Wno-invalid-offsetof -fno-rtti -fno-exceptions
+ASFLAGS  = $(CFLAGS)
+LDFLAGS  = -nostartfiles
+
+#CXXFLAGS += -std=c++11
+
+#all:
+#	cp -f server.prx ../../build/valve/dlls
+#	cp -f server.elf ../	
+
+PSPSDK=$(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build.mak
+#include $(PSPSDK)/lib/build_prx.mak
