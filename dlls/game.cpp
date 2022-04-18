@@ -35,7 +35,7 @@ cvar_t weaponstay	= { "mp_weaponstay","0", FCVAR_SERVER };
 cvar_t selfgauss	= { "selfgauss", "1", FCVAR_SERVER };
 cvar_t chargerfix	= { "chargerfix", "0", FCVAR_SERVER };
 cvar_t satchelfix	= { "satchelfix", "0", FCVAR_SERVER };
-cvar_t monsteryawspeedfix	= { "monsteryawspeedfix", "0", FCVAR_SERVER };
+cvar_t monsteryawspeedfix	= { "monsteryawspeedfix", "1", FCVAR_SERVER };
 cvar_t forcerespawn	= { "mp_forcerespawn","1", FCVAR_SERVER };
 cvar_t flashlight	= { "mp_flashlight","0", FCVAR_SERVER };
 cvar_t aimcrosshair	= { "mp_autocrosshair","1", FCVAR_SERVER };
@@ -55,6 +55,7 @@ cvar_t mp_chattime	= { "mp_chattime","10", FCVAR_SERVER };
 cvar_t *g_psv_gravity = NULL;
 cvar_t *g_psv_aim = NULL;
 cvar_t *g_footsteps = NULL;
+cvar_t *g_enable_cheats = NULL;
 
 cvar_t *g_psv_developer;
 
@@ -467,6 +468,8 @@ void GameDLLInit( void )
 
 	g_psv_developer = CVAR_GET_POINTER( "developer" );
 
+	g_enable_cheats = CVAR_GET_POINTER( "sv_cheats" );
+
 	CVAR_REGISTER( &displaysoundlist );
 	CVAR_REGISTER( &allow_spectators );
 
@@ -496,6 +499,8 @@ void GameDLLInit( void )
 	CVAR_REGISTER( &multibyte_only );
 
 	CVAR_REGISTER( &mp_chattime );
+
+
 
 // REGISTER CVARS FOR SKILL LEVEL STUFF
 	// Agrunt

@@ -1,5 +1,5 @@
 #pragma once
-#ifndef INPUT_MOUSE_H
+#if !defined(INPUT_MOUSE_H)
 #define INPUT_MOUSE_H
 #include "cl_dll.h"
 #include "usercmd.h"
@@ -45,8 +45,23 @@ protected:
 };
 
 // No need for goldsource input support on the platforms that are not supported by GoldSource.
-#if defined(GOLDSOURCE_SUPPORT) && (defined(_WIN32) || defined(__linux__) || defined(__APPLE__)) && (defined(__i386) || defined(_M_IX86))
-#define SUPPORT_GOLDSOURCE_INPUT
+#if GOLDSOURCE_SUPPORT && (_WIN32 || __linux__ || __APPLE__) && (__i386 || _M_IX86)
+#define SUPPORT_GOLDSOURCE_INPUT	1
+
+#if _WIN32
+#define HSPRITE WINDOWS_HSPRITE
+#include <windows.h>
+#undef HSPRITE
+#else
+typedef struct point_s
+{
+	int x;
+	int y;
+} POINT;
+#define GetCursorPos(x)
+#define SetCursorPos(x,y)
+#endif
+
 class GoldSourceInput : public AbstractInput
 {
 public:

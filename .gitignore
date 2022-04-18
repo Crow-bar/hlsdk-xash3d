@@ -9,7 +9,7 @@
 *.dll
 *.pdb
 build/
-CMakeLists.txt.user
+CMakeLists.txt.*
 cmake_install.cmake
 *.orig
 *.cbp
@@ -24,3 +24,8 @@ waf3-*
 .lock*
 *.pyc
 .vscode/
+.vs/
+CMakeSettings.json
+CMakeFiles
+CMakeCache.txt
+Makefile
