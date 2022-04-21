@@ -54,6 +54,6 @@ install: client server
 	@echo "Installing to $(INSTALL_DIR)"
 
 clean:
-	$(MAKE) -f $(SRC_DIR)/$(PSP_DIR)/Makefile.client.psp clean --no-print-directory
-	$(MAKE) -f $(SRC_DIR)/$(PSP_DIR)/Makefile.server.psp clean --no-print-directory
+	@$(MAKE) -f $(SRC_DIR)/$(PSP_DIR)/Makefile.client.psp clean --no-print-directory
+	@$(MAKE) -f $(SRC_DIR)/$(PSP_DIR)/Makefile.server.psp clean --no-print-directory
 	@rm -rf $(DST_DIR)

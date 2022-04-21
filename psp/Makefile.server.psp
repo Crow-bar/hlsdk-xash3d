@@ -2,7 +2,7 @@ DST_DIR         := $(DST_DIR)/$(SERVER_LIB)
 TARGET          = $(DST_DIR)/$(SERVER_LIB)
 
 SRC =
-SRC += $(SERVER_DIR)/agrunt.cpp 
+SRC += $(SERVER_DIR)/agrunt.cpp
 SRC += $(SERVER_DIR)/airtank.cpp
 SRC += $(SERVER_DIR)/aflock.cpp
 SRC += $(SERVER_DIR)/animating.cpp
@@ -126,7 +126,8 @@ LIBS     = -lstdc++ -lm -lpspuser
 
 DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf \
 	-D_vsnprintf=vsnprintf -DCLIENT_WEAPONS=1 -DNO_VOICEGAMEMGR -D__PSP__
-CFLAGS  = -G0 -g -O3 -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
+CFLAGS  = -G0 -g -O3
+#CFLAGS  = -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
 	-Werror=vla -Werror=tautological-compare -Werror=duplicated-cond \
 	-Werror=bool-compare -Werror=bool-operation -Wstrict-aliasing
 #CFLAGS  += -fsigned-char

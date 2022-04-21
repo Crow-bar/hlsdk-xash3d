@@ -2,7 +2,7 @@ DST_DIR         := $(DST_DIR)/$(CLIENT_LIB)
 TARGET          = $(DST_DIR)/$(CLIENT_LIB)
 
 SRC =
-SRC += $(SERVER_DIR)/crossbow.cpp                   
+SRC += $(SERVER_DIR)/crossbow.cpp
 SRC += $(SERVER_DIR)/crowbar.cpp
 SRC += $(SERVER_DIR)/egon.cpp
 SRC += $(CLIENT_DIR)/ev_hldm.cpp
@@ -89,7 +89,8 @@ LIBS   = -lstdc++ -lm -lpspuser
 
 DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf \
 	-D_vsnprintf=vsnprintf -DCLIENT_WEAPONS=1 -DCLIENT_DLL -D__PSP__
-CFLAGS  = -G0 -g -Ofast -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
+CFLAGS  = -G0 -g -Ofast
+#CFLAGS  = -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
 	-Werror=vla -Werror=tautological-compare -Werror=duplicated-cond \
 	-Werror=bool-compare -Werror=bool-operation -Wstrict-aliasing
 #CFLAGS  += -fsigned-char
