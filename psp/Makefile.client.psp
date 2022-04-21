@@ -1,0 +1,117 @@
+DST_DIR         := $(DST_DIR)/$(CLIENT_LIB)
+TARGET          = $(DST_DIR)/$(CLIENT_LIB)
+
+SRC =
+SRC += $(SERVER_DIR)/crossbow.cpp                   
+SRC += $(SERVER_DIR)/crowbar.cpp
+SRC += $(SERVER_DIR)/egon.cpp
+SRC += $(CLIENT_DIR)/ev_hldm.cpp
+SRC += $(SERVER_DIR)/gauss.cpp
+SRC += $(SERVER_DIR)/handgrenade.cpp
+SRC += $(CLIENT_DIR)/hl/hl_baseentity.cpp
+SRC += $(CLIENT_DIR)/hl/hl_events.cpp
+SRC += $(CLIENT_DIR)/hl/hl_objects.cpp
+SRC += $(CLIENT_DIR)/hl/hl_weapons.cpp
+SRC += $(SERVER_DIR)/hornetgun.cpp
+SRC += $(SERVER_DIR)/mp5.cpp
+SRC += $(SERVER_DIR)/python.cpp
+SRC += $(SERVER_DIR)/rpg.cpp
+SRC += $(SERVER_DIR)/satchel.cpp
+SRC += $(SERVER_DIR)/shotgun.cpp
+SRC += $(SERVER_DIR)/squeakgrenade.cpp
+SRC += $(SERVER_DIR)/tripmine.cpp
+SRC += $(SERVER_DIR)/glock.cpp
+#SRC += $(GAME_SHARED_DIR)/voice_banmgr.cpp
+#SRC += $(GAME_SHARED_DIR)/voice_status.cpp
+SRC += $(CLIENT_DIR)/ammo.cpp
+SRC += $(CLIENT_DIR)/ammo_secondary.cpp
+SRC += $(CLIENT_DIR)/ammohistory.cpp
+SRC += $(CLIENT_DIR)/battery.cpp
+SRC += $(CLIENT_DIR)/cdll_int.cpp
+SRC += $(CLIENT_DIR)/com_weapons.cpp
+SRC += $(CLIENT_DIR)/death.cpp
+SRC += $(CLIENT_DIR)/demo.cpp
+SRC += $(CLIENT_DIR)/entity.cpp
+SRC += $(CLIENT_DIR)/ev_common.cpp
+SRC += $(CLIENT_DIR)/events.cpp
+SRC += $(CLIENT_DIR)/flashlight.cpp
+SRC += $(CLIENT_DIR)/GameStudioModelRenderer.cpp
+SRC += $(CLIENT_DIR)/geiger.cpp
+SRC += $(CLIENT_DIR)/health.cpp
+SRC += $(CLIENT_DIR)/hud.cpp
+SRC += $(CLIENT_DIR)/hud_msg.cpp
+SRC += $(CLIENT_DIR)/hud_redraw.cpp
+#SRC += $(CLIENT_DIR)/hud_servers.cpp
+SRC += $(CLIENT_DIR)/hud_spectator.cpp
+SRC += $(CLIENT_DIR)/hud_update.cpp
+SRC += $(CLIENT_DIR)/in_camera.cpp
+SRC += $(CLIENT_DIR)/input.cpp
+SRC += $(CLIENT_DIR)/input_goldsource.cpp
+SRC += $(CLIENT_DIR)/input_mouse.cpp
+#SRC += $(CLIENT_DIR)/inputw32.cpp
+SRC += $(CLIENT_DIR)/menu.cpp
+SRC += $(CLIENT_DIR)/message.cpp
+SRC += $(CLIENT_DIR)/overview.cpp
+SRC += $(CLIENT_DIR)/parsemsg.cpp
+SRC += $(CLIENT_DIR)/saytext.cpp
+SRC += $(CLIENT_DIR)/status_icons.cpp
+SRC += $(CLIENT_DIR)/statusbar.cpp
+SRC += $(CLIENT_DIR)/studio_util.cpp
+SRC += $(CLIENT_DIR)/StudioModelRenderer.cpp
+SRC += $(CLIENT_DIR)/text_message.cpp
+SRC += $(CLIENT_DIR)/train.cpp
+SRC += $(CLIENT_DIR)/tri.cpp
+SRC += $(CLIENT_DIR)/util.cpp
+SRC += $(CLIENT_DIR)/view.cpp
+SRC += $(CLIENT_DIR)/input_xash3d.cpp
+SRC += $(CLIENT_DIR)/scoreboard.cpp
+SRC += $(CLIENT_DIR)/MOTD.cpp
+SRC += $(PM_SHARED_DIR)/pm_debug.c
+SRC += $(PM_SHARED_DIR)/pm_math.c
+SRC += $(PM_SHARED_DIR)/pm_shared.c
+SRC += $(PSP_DIR)/client_psp.cpp
+SRC += $(PSP_DIR)/crtbegin.c
+SRC += $(PSP_DIR)/crtend.c
+
+SRC := $(addprefix $(DST_DIR)/,$(SRC))
+OBJS = $(patsubst %.cpp, %.o, $(filter %.cpp, $(SRC))) \
+       $(patsubst %.c, %.o, $(filter %.c, $(SRC)))
+
+INCDIR = $(SRC_DIR)/$(COMMON_DIR) \
+         $(SRC_DIR)/$(CLIENT_DIR) \
+         $(SRC_DIR)/$(GAME_SHARED_DIR) \
+         $(SRC_DIR)/$(PM_SHARED_DIR) \
+         $(SRC_DIR)/$(ENGINE_DIR) \
+         $(SRC_DIR)/$(SERVER_DIR) \
+         $(SRC_DIR)/$(VGUI_DIR)
+
+LIBS   = -lstdc++ -lm -lpspuser
+
+DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf \
+	-D_vsnprintf=vsnprintf -DCLIENT_WEAPONS=1 -DCLIENT_DLL -D__PSP__
+CFLAGS  = -G0 -g -Ofast
+#CFLAGS  = -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
+	-Werror=vla -Werror=tautological-compare -Werror=duplicated-cond \
+	-Werror=bool-compare -Werror=bool-operation -Wstrict-aliasing
+
+CFLAGS  += $(DEFINES)
+CXXFLAGS = $(CFLAGS) -Wno-invalid-offsetof -fno-rtti -fno-exceptions
+ASFLAGS  = $(CFLAGS)
+LDFLAGS  = -nostartfiles
+
+all: $(OBJS)
+
+# Compile a C file.
+$(DST_DIR)/%.o: $(SRC_DIR)/%.c
+	@echo "\033[38;5;${TEXT_COLOR}m"$(notdir $<)"\033[0m"
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# Compile a C++ file.
+$(DST_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@echo "\033[38;5;${TEXT_COLOR}m"$(notdir $<)"\033[0m"
+	@mkdir -p $(dir $@)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
+
+PSPSDK=$(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build.mak

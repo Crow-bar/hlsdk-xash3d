@@ -1,0 +1,59 @@
+# Target dirs
+export SRC_DIR         = .
+export DST_DIR         = build
+INSTALL_DIR           ?= build/dist/bshift
+
+# Names
+export CLIENT_LIB      = client
+export SERVER_LIB      = server
+
+# Other
+export TEXT_COLOR      = 20
+
+# HLSDK dirs
+export CLIENT_DIR      = cl_dll
+export SERVER_DIR      = dlls
+export GAME_SHARED_DIR = game_shared
+export PM_SHARED_DIR   = pm_shared
+export UTILS_DIR       = utils
+export COMMON_DIR      = common
+export ENGINE_DIR      = engine
+export PUBLIC_DIR      = public
+export VGUI_DIR        = $(UTILS_DIR)/false_vgui/include
+export PSP_DIR         = psp
+
+# PSPSDK
+export BUILD_PRX       = 1
+export PSP_FW_VERSION  = 660
+export PRX_EXPORTS     = $(SRC_DIR)/$(PSP_DIR)/exports.exp
+
+export USE_NEWLIB_LIBC = 1
+#export USE_PSPSDK_LIBC = 1
+
+# Targets
+.PHONY: all client server install clean
+
+all: client server install
+	@echo -n "\033[38;5;${TEXT_COLOR}m"
+	@echo    "*********************************************"
+	@echo    "******************* DONE! *******************"
+	@echo -n "*********************************************"
+	@echo    "\033[0m"
+	
+
+client:
+	@$(MAKE) -f $(SRC_DIR)/$(PSP_DIR)/Makefile.client.psp --no-print-directory
+
+server:
+	@$(MAKE) -f $(SRC_DIR)/$(PSP_DIR)/Makefile.server.psp --no-print-directory
+
+install: client server
+	@mkdir -p $(INSTALL_DIR)/cl_dlls $(INSTALL_DIR)/dlls
+	@cp $(DST_DIR)/$(CLIENT_LIB)/$(CLIENT_LIB).prx $(INSTALL_DIR)/cl_dlls
+	@cp $(DST_DIR)/$(SERVER_LIB)/$(SERVER_LIB).prx $(INSTALL_DIR)/dlls
+	@echo "Installing to $(INSTALL_DIR)"
+
+clean:
+	@$(MAKE) -f $(SRC_DIR)/$(PSP_DIR)/Makefile.client.psp clean --no-print-directory
+	@$(MAKE) -f $(SRC_DIR)/$(PSP_DIR)/Makefile.server.psp clean --no-print-directory
+	@rm -rf $(DST_DIR)
