@@ -1,0 +1,188 @@
+DST_DIR         := $(DST_DIR)/$(SERVER_LIB)
+TARGET          = $(DST_DIR)/$(SERVER_LIB)
+
+SRC =
+SRC += $(SERVER_DIR)/agrunt.cpp
+SRC += $(SERVER_DIR)/airtank.cpp
+SRC += $(SERVER_DIR)/aflock.cpp
+SRC += $(SERVER_DIR)/animating.cpp
+SRC += $(SERVER_DIR)/animation.cpp
+SRC += $(SERVER_DIR)/apache.cpp
+SRC += $(SERVER_DIR)/barnacle.cpp
+SRC += $(SERVER_DIR)/barney.cpp
+SRC += $(SERVER_DIR)/bigmomma.cpp
+SRC += $(SERVER_DIR)/bloater.cpp
+SRC += $(SERVER_DIR)/bmodels.cpp
+SRC += $(SERVER_DIR)/bullsquid.cpp
+SRC += $(SERVER_DIR)/buttons.cpp
+SRC += $(SERVER_DIR)/cbase.cpp
+SRC += $(SERVER_DIR)/client.cpp
+SRC += $(SERVER_DIR)/combat.cpp
+SRC += $(SERVER_DIR)/controller.cpp
+SRC += $(SERVER_DIR)/crossbow.cpp
+SRC += $(SERVER_DIR)/crowbar.cpp
+SRC += $(SERVER_DIR)/defaultai.cpp
+SRC += $(SERVER_DIR)/doors.cpp
+SRC += $(SERVER_DIR)/effects.cpp
+#SRC += $(SERVER_DIR)/egon.cpp
+SRC += $(SERVER_DIR)/explode.cpp
+SRC += $(SERVER_DIR)/flyingmonster.cpp
+SRC += $(SERVER_DIR)/func_break.cpp
+SRC += $(SERVER_DIR)/func_tank.cpp
+SRC += $(SERVER_DIR)/game.cpp
+SRC += $(SERVER_DIR)/gamerules.cpp
+SRC += $(SERVER_DIR)/gargantua.cpp
+SRC += $(SERVER_DIR)/gauss.cpp
+SRC += $(SERVER_DIR)/genericmonster.cpp
+SRC += $(SERVER_DIR)/ggrenade.cpp
+SRC += $(SERVER_DIR)/globals.cpp
+SRC += $(SERVER_DIR)/glock.cpp
+SRC += $(SERVER_DIR)/gman.cpp
+SRC += $(SERVER_DIR)/h_ai.cpp
+SRC += $(SERVER_DIR)/h_battery.cpp
+SRC += $(SERVER_DIR)/h_cine.cpp
+SRC += $(SERVER_DIR)/h_cycler.cpp
+SRC += $(SERVER_DIR)/h_export.cpp
+#SRC += $(SERVER_DIR)/handgrenade.cpp
+SRC += $(SERVER_DIR)/hassassin.cpp
+SRC += $(SERVER_DIR)/headcrab.cpp
+SRC += $(SERVER_DIR)/healthkit.cpp
+SRC += $(SERVER_DIR)/hgrunt.cpp
+SRC += $(SERVER_DIR)/hornet.cpp
+#SRC += $(SERVER_DIR)/hornetgun.cpp
+SRC += $(SERVER_DIR)/houndeye.cpp
+SRC += $(SERVER_DIR)/ichthyosaur.cpp
+SRC += $(SERVER_DIR)/islave.cpp
+SRC += $(SERVER_DIR)/items.cpp
+SRC += $(SERVER_DIR)/leech.cpp
+SRC += $(SERVER_DIR)/lights.cpp
+SRC += $(SERVER_DIR)/maprules.cpp
+SRC += $(SERVER_DIR)/monstermaker.cpp
+SRC += $(SERVER_DIR)/monsters.cpp
+SRC += $(SERVER_DIR)/monsterstate.cpp
+SRC += $(SERVER_DIR)/mortar.cpp
+SRC += $(SERVER_DIR)/mp5.cpp
+SRC += $(SERVER_DIR)/multiplay_gamerules.cpp
+SRC += $(SERVER_DIR)/nihilanth.cpp
+SRC += $(SERVER_DIR)/nodes.cpp
+SRC += $(SERVER_DIR)/observer.cpp
+SRC += $(SERVER_DIR)/osprey.cpp
+SRC += $(SERVER_DIR)/pathcorner.cpp
+SRC += $(SERVER_DIR)/plane.cpp
+SRC += $(SERVER_DIR)/plats.cpp
+SRC += $(SERVER_DIR)/player.cpp
+#SRC += $(SERVER_DIR)/python.cpp
+SRC += $(SERVER_DIR)/playermonster.cpp
+SRC += $(SERVER_DIR)/rat.cpp
+SRC += $(SERVER_DIR)/roach.cpp
+SRC += $(SERVER_DIR)/rpg.cpp
+SRC += $(SERVER_DIR)/satchel.cpp
+SRC += $(SERVER_DIR)/schedule.cpp
+SRC += $(SERVER_DIR)/scientist.cpp
+SRC += $(SERVER_DIR)/scripted.cpp
+SRC += $(SERVER_DIR)/shotgun.cpp
+SRC += $(SERVER_DIR)/singleplay_gamerules.cpp
+SRC += $(SERVER_DIR)/skill.cpp
+SRC += $(SERVER_DIR)/sound.cpp
+SRC += $(SERVER_DIR)/soundent.cpp
+SRC += $(SERVER_DIR)/spectator.cpp
+SRC += $(SERVER_DIR)/squadmonster.cpp
+SRC += $(SERVER_DIR)/squeakgrenade.cpp
+SRC += $(SERVER_DIR)/subs.cpp
+SRC += $(SERVER_DIR)/talkmonster.cpp
+SRC += $(SERVER_DIR)/teamplay_gamerules.cpp
+SRC += $(SERVER_DIR)/tempmonster.cpp
+SRC += $(SERVER_DIR)/tentacle.cpp
+SRC += $(SERVER_DIR)/triggers.cpp
+SRC += $(SERVER_DIR)/tripmine.cpp
+SRC += $(SERVER_DIR)/turret.cpp
+SRC += $(SERVER_DIR)/util.cpp
+SRC += $(SERVER_DIR)/weapons.cpp
+SRC += $(SERVER_DIR)/world.cpp
+SRC += $(SERVER_DIR)/xen.cpp
+SRC += $(SERVER_DIR)/zombie.cpp
+SRC += $(PM_SHARED_DIR)/pm_debug.c
+SRC += $(PM_SHARED_DIR)/pm_math.c
+SRC += $(PM_SHARED_DIR)/pm_shared.c
+SRC += $(SERVER_DIR)/poke646/firetrail.cpp
+SRC += $(SERVER_DIR)/poke646/genericmodel.cpp
+SRC += $(SERVER_DIR)/poke646/mp3.cpp
+SRC += $(SERVER_DIR)/poke646/nail.cpp
+SRC += $(SERVER_DIR)/poke646/robocop.cpp
+SRC += $(SERVER_DIR)/poke646/xsbeam.cpp
+
+BEGIN_SRC = \
+$(PSP_DIR)/crtbegin.c \
+$(PSP_DIR)/expbegin.c
+
+END_SRC = \
+$(PSP_DIR)/server_psp.c \
+$(PSP_DIR)/exports.c \
+$(PSP_DIR)/expend.c \
+$(PSP_DIR)/crtend.c
+
+SRC := $(BEGIN_SRC) $(SRC) $(END_SRC)
+SRC := $(addprefix $(DST_DIR)/,$(SRC))
+OBJS += $(patsubst %.c, %.o, $(patsubst %.cpp, %.o, $(SRC)))
+
+INCDIR = $(SRC_DIR)/$(SERVER_DIR) \
+         $(SRC_DIR)/$(SERVER_DIR)/wpn_shared \
+         $(SRC_DIR)/$(SERVER_DIR)/poke646 \
+         $(SRC_DIR)/$(COMMON_DIR) \
+         $(SRC_DIR)/$(ENGINE_DIR)/common \
+         $(SRC_DIR)/$(ENGINE_DIR) \
+         $(SRC_DIR)/$(PUBLIC_DIR) \
+         $(SRC_DIR)/$(PM_SHARED_DIR) \
+         $(SRC_DIR)/$(GAME_SHARED_DIR) \
+         $(SRC_DIR)/$(PSP_DIR)
+
+LIBS     = -lstdc++ -lm -lpspuser
+
+DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf \
+	-D_vsnprintf=vsnprintf -DNO_VOICEGAMEMGR -D__PSP__
+CFLAGS  = -G0 -g -O3
+#CFLAGS  = -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
+	-Werror=vla -Werror=tautological-compare -Werror=duplicated-cond \
+	-Werror=bool-compare -Werror=bool-operation -Wstrict-aliasing
+#CFLAGS  += -fsigned-char
+
+CFLAGS  += $(DEFINES)
+CXXFLAGS = $(CFLAGS) -Wno-invalid-offsetof -fno-rtti -fno-exceptions
+ASFLAGS  = $(CFLAGS)
+
+all: $(OBJS)
+
+# Compile a C file.
+$(DST_DIR)/%.o: $(SRC_DIR)/%.c
+	@echo "\033[38;5;${TEXT_COLOR}m"$(notdir $<)"\033[0m"
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# Compile a C++ file.
+$(DST_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@echo "\033[38;5;${TEXT_COLOR}m"$(notdir $<)"\033[0m"
+	@mkdir -p $(dir $@)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(DST_DIR)/$(PSP_DIR)/crtbegin.o: $(SRC_DIR)/$(PSP_DIR)/crtstuff.c
+	@echo "\033[38;5;160m"$(notdir $@)"\033[0m"
+	@mkdir -p $(dir $@)
+	@$(CC) -O0 -DCRT_BEGIN -c $< -o $@
+
+$(DST_DIR)/$(PSP_DIR)/crtend.o: $(SRC_DIR)/$(PSP_DIR)/crtstuff.c
+	@echo "\033[38;5;160m"$(notdir $@)"\033[0m"
+	@mkdir -p $(dir $@)
+	@$(CC) -O0 -DCRT_END -c $< -o $@
+
+$(DST_DIR)/$(PSP_DIR)/expbegin.o: $(SRC_DIR)/$(PSP_DIR)/pspexp.c
+	@echo "\033[38;5;160m"$(notdir $@)"\033[0m"
+	@mkdir -p $(dir $@)
+	@$(CC) -O0 -DPSPEXP_BEGIN -c $< -o $@
+
+$(DST_DIR)/$(PSP_DIR)/expend.o: $(SRC_DIR)/$(PSP_DIR)/pspexp.c
+	@echo "\033[38;5;160m"$(notdir $@)"\033[0m"
+	@mkdir -p $(dir $@)
+	@$(CC) -O0 -DPSPEXP_END -c $< -o $@
+
+PSPSDK=$(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build_prx.mak

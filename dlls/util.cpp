@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -54,7 +54,7 @@ float UTIL_WeaponTimeBase( void )
 #endif
 }
 
-static unsigned int glSeed = 0; 
+static unsigned int glSeed = 0;
 
 unsigned int seed_table[256] =
 {
@@ -76,13 +76,13 @@ unsigned int seed_table[256] =
 	25678, 18555, 13256, 23316, 22407, 16727, 991, 9236, 5373, 29402, 6117, 15241, 27715, 19291, 19888, 19847
 };
 
-unsigned int U_Random( void ) 
-{ 
-	glSeed *= 69069; 
+unsigned int U_Random( void )
+{
+	glSeed *= 69069;
 	glSeed += seed_table[glSeed & 0xff];
 
-	return ( ++glSeed & 0x0fffffff ); 
-} 
+	return ( ++glSeed & 0x0fffffff );
+}
 
 void U_Srand( unsigned int seed )
 {
@@ -151,7 +151,7 @@ float UTIL_SharedRandomFloat( unsigned int seed, float low, float high )
 }
 
 void UTIL_ParametricRocket( entvars_t *pev, Vector vecOrigin, Vector vecAngles, edict_t *owner )
-{	
+{
 	pev->startpos = vecOrigin;
 	// Trace out line to end pos
 	TraceResult tr;
@@ -341,7 +341,7 @@ void DBG_AssertFunction( BOOL fExpr, const char* szExpr, const char* szFile, int
 	if( fExpr )
 		return;
 	char szOut[512];
-	
+
 	if( szMessage != NULL )
 		sprintf( szOut, "ASSERT FAILED:\n %s \n(%s@%d)\n%s", szExpr, szFile, szLine, szMessage );
 	else
@@ -404,8 +404,8 @@ void UTIL_MoveToOrigin( edict_t *pent, const Vector &vecGoal, float flDist, int 
 {
 	float rgfl[3];
 	vecGoal.CopyToArray( rgfl );
-	//return MOVE_TO_ORIGIN( pent, rgfl, flDist, iMoveType ); 
-	MOVE_TO_ORIGIN( pent, rgfl, flDist, iMoveType ); 
+	//return MOVE_TO_ORIGIN( pent, rgfl, flDist, iMoveType );
+	MOVE_TO_ORIGIN( pent, rgfl, flDist, iMoveType );
 }
 
 int UTIL_EntitiesInBox( CBaseEntity **pList, int listMax, const Vector &mins, const Vector &maxs, int flagMask )
@@ -589,7 +589,7 @@ CBaseEntity *UTIL_PlayerByIndex( int playerIndex )
 			pPlayer = CBaseEntity::Instance( pPlayerEdict );
 		}
 	}
-	
+
 	return pPlayer;
 }
 
@@ -820,7 +820,7 @@ void UTIL_HudMessageAll( const hudtextparms_t &textparms, const char *pMessage )
 			UTIL_HudMessage( pPlayer, textparms, pMessage );
 	}
 }
-				 
+
 extern int gmsgTextMsg, gmsgSayText;
 void UTIL_ClientPrintAll( int msg_dest, const char *msg_name, const char *param1, const char *param2, const char *param3, const char *param4 )
 {
@@ -968,7 +968,7 @@ void UTIL_SetSize( entvars_t *pev, const Vector &vecMin, const Vector &vecMax )
 {
 	SET_SIZE( ENT( pev ), vecMin, vecMax );
 }
-	
+
 float UTIL_VecToYaw( const Vector &vec )
 {
 	return VEC_TO_YAW( vec );
@@ -994,7 +994,7 @@ float UTIL_Approach( float target, float value, float speed )
 		value += speed;
 	else if( delta < -speed )
 		value -= speed;
-	else 
+	else
 		value = target;
 
 	return value;
@@ -1020,7 +1020,7 @@ float UTIL_ApproachAngle( float target, float value, float speed )
 		value += speed;
 	else if( delta < -speed )
 		value -= speed;
-	else 
+	else
 		value = target;
 
 	return value;
@@ -1128,7 +1128,7 @@ void UTIL_BloodStream( const Vector &origin, const Vector &direction, int color,
 		WRITE_BYTE( color );
 		WRITE_BYTE( Q_min( amount, 255 ) );
 	MESSAGE_END();
-}				
+}
 
 void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, int amount )
 {
@@ -1160,7 +1160,7 @@ void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, 
 		WRITE_BYTE( color );								// color index into host_basepal
 		WRITE_BYTE( Q_min( Q_max( 3, amount / 10 ), 16 ) );		// size
 	MESSAGE_END();
-}				
+}
 
 Vector UTIL_RandomBloodVector( void )
 {
@@ -1539,7 +1539,7 @@ void UTIL_PrecacheOther( const char *szClassname )
 		ALERT( at_console, "NULL Ent in UTIL_PrecacheOther\n" );
 		return;
 	}
-	
+
 	CBaseEntity *pEntity = CBaseEntity::Instance( VARS( pent ) );
 	if( pEntity )
 		pEntity->Precache();
@@ -1554,7 +1554,7 @@ void UTIL_LogPrintf( const char *fmt, ... )
 {
 	va_list		argptr;
 	static char	string[1024];
-	
+
 	va_start( argptr, fmt );
 	vsprintf( string, fmt, argptr );
 	va_end( argptr );
@@ -1613,7 +1613,7 @@ static int gSizes[FIELD_TYPECOUNT] =
 #if GNUC
 	sizeof(void *) * 2,	// FIELD_FUNCTION
 #else
-	sizeof(void *),		// FIELD_FUNCTION	
+	sizeof(void *),		// FIELD_FUNCTION
 #endif
 	sizeof(int),		// FIELD_BOOLEAN
 	sizeof(short),		// FIELD_SHORT
@@ -1806,7 +1806,7 @@ unsigned short CSaveRestoreBuffer::TokenHash( const char *pszToken )
 		}
 	}
 
-	// Token hash table full!!! 
+	// Token hash table full!!!
 	// [Consider doing overflow table(s) after the main table & limiting linear hash table search]
 	ALERT( at_error, "CSaveRestoreBuffer :: TokenHash() is COMPLETELY FULL!" );
 	return 0;
@@ -1954,14 +1954,35 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 			case FIELD_MODELNAME:
 			case FIELD_SOUNDNAME:
 			case FIELD_STRING:
+#ifdef __PSP__
+				{
+				string_t strval = ALLOC_STRING( pkvd->szValue );
+				memcpy( ( char * )pev + pField->fieldOffset, &strval, sizeof( string_t ) );
+				}
+#else
 				( *(string_t *)( (char *)pev + pField->fieldOffset ) ) = ALLOC_STRING( pkvd->szValue );
+#endif
 				break;
 			case FIELD_TIME:
 			case FIELD_FLOAT:
+#ifdef __PSP__
+				{
+				float fval = atof( pkvd->szValue );
+				memcpy( (char *)pev + pField->fieldOffset, &fval, sizeof( float ) );
+				}
+#else
 				( *(float *)( (char *)pev + pField->fieldOffset ) ) = atof( pkvd->szValue );
+#endif
 				break;
 			case FIELD_INTEGER:
+#ifdef __PSP__
+				{
+				int ival = atoi( pkvd->szValue );
+				memcpy( (char *)pev + pField->fieldOffset, &ival, sizeof( int ) );
+				}
+#else
 				( *(int *)( (char *)pev + pField->fieldOffset ) ) = atoi( pkvd->szValue );
+#endif
 				break;
 			case FIELD_POSITION_VECTOR:
 			case FIELD_VECTOR:
@@ -2156,6 +2177,13 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 	Vector position;
 	edict_t	*pent;
 	char *pString;
+#ifdef __PSP__
+	CBaseEntity	*cBaseEnt;
+	entvars_t	*entVars;
+	EOFFSET		eOffSet;
+	EHANDLE     eHandle;
+	void		*funcCb;
+#endif
 
 	time = 0;
 	position = Vector( 0, 0, 0 );
@@ -2179,21 +2207,20 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 				{
 					void *pOutputData = ( (char *)pBaseData + pTest->fieldOffset + ( j * gSizes[pTest->fieldType] ) );
 					void *pInputData = (char *)pData + j * gInputSizes[pTest->fieldType];
-
 					switch( pTest->fieldType )
 					{
 					case FIELD_TIME:
-					#if __VFP_FP__
+#if __VFP_FP__  || defined(__PSP__)
 						memcpy( &timeData, pInputData, 4 );
 						// Re-base time variables
 						timeData += time;
 						memcpy( pOutputData, &timeData, 4 );
-					#else
+#else
 						timeData = *(float *)pInputData;
 						// Re-base time variables
 						timeData += time;
 						*( (float *)pOutputData ) = timeData;
-					#endif
+#endif
 						break;
 					case FIELD_FLOAT:
 						memcpy( pOutputData, pInputData, 4 );
@@ -2201,6 +2228,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 					case FIELD_MODELNAME:
 					case FIELD_SOUNDNAME:
 					case FIELD_STRING:
+#ifdef __PSP__
 						// Skip over j strings
 						pString = (char *)pData;
 						for( stringCount = 0; stringCount < j; stringCount++ )
@@ -2211,7 +2239,39 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 						}
 						pInputData = pString;
 						if( ( (char *)pInputData )[0] == '\0' )
+						{
+							memset( pOutputData, 0, sizeof( string_t ) );
+						}
+						else
+						{
+							string_t string;
+
+							string = ALLOC_STRING( (char *)pInputData );
+
+							memcpy( pOutputData, &string, sizeof( string_t ) );
+
+							if( !FStringNull( string ) && m_precache )
+							{
+								if( pTest->fieldType == FIELD_MODELNAME )
+									PRECACHE_MODEL( STRING( string ) );
+								else if( pTest->fieldType == FIELD_SOUNDNAME )
+									PRECACHE_SOUND( STRING( string ) );
+							}
+						}
+#else
+						// Skip over j strings
+						pString = (char *)pData;
+						for( stringCount = 0; stringCount < j; stringCount++ )
+						{
+							while( *pString )
+								pString++;
+							pString++;
+						}
+						pInputData = pString;
+						if( ( (char *)pInputData )[0] == '\0' )
+						{
 							*( (string_t *)pOutputData ) = 0;
+						}
 						else
 						{
 							string_t string;
@@ -2228,30 +2288,67 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 									PRECACHE_SOUND( STRING( string ) );
 							}
 						}
+#endif
 						break;
 					case FIELD_EVARS:
+#ifdef __PSP__
+						memcpy( &entityIndex, pInputData, 4 );
+						pent = EntityFromIndex( entityIndex );
+						if( pent )
+							entVars = VARS( pent );
+						else
+							entVars = NULL;
+						memcpy( pOutputData, &entVars,  sizeof( entvars_t * ) );
+#else
 						entityIndex = *( int *)pInputData;
 						pent = EntityFromIndex( entityIndex );
 						if( pent )
 							*( (entvars_t **)pOutputData ) = VARS( pent );
 						else
 							*( (entvars_t **)pOutputData ) = NULL;
+#endif
 						break;
 					case FIELD_CLASSPTR:
+#ifdef __PSP__
+						memcpy( &entityIndex, pInputData, 4 );
+						pent = EntityFromIndex( entityIndex );
+						if( pent )
+							cBaseEnt = CBaseEntity::Instance( pent );
+						else
+							cBaseEnt = NULL;
+						memcpy(pOutputData, &cBaseEnt,  sizeof( CBaseEntity * ));
+#else
 						entityIndex = *( int *)pInputData;
 						pent = EntityFromIndex( entityIndex );
 						if( pent )
 							*( (CBaseEntity **)pOutputData ) = CBaseEntity::Instance( pent );
 						else
 							*( (CBaseEntity **)pOutputData ) = NULL;
+#endif
 						break;
 					case FIELD_EDICT:
+#ifdef __PSP__
+						memcpy( &entityIndex, pInputData, 4 );
+						pent = EntityFromIndex( entityIndex );
+						memcpy(pOutputData, &pent,  sizeof( edict_t * ));
+#else
 						entityIndex = *(int *)pInputData;
 						pent = EntityFromIndex( entityIndex );
 						*( (edict_t **)pOutputData ) = pent;
+#endif
 						break;
 					case FIELD_EHANDLE:
 						// Input and Output sizes are different!
+#ifdef __PSP__
+						pOutputData = (char *)pOutputData + j * ( sizeof(EHANDLE) - gSizes[pTest->fieldType] );
+						memcpy( &entityIndex, pInputData, 4 );
+						pent = EntityFromIndex( entityIndex );
+						if( pent )
+							eHandle = CBaseEntity::Instance( pent );
+						else
+							eHandle = NULL;
+						memcpy( pOutputData, &eHandle,  sizeof( EHANDLE ) );
+#else
 						pOutputData = (char *)pOutputData + j * ( sizeof(EHANDLE) - gSizes[pTest->fieldType] );
 						entityIndex = *(int *)pInputData;
 						pent = EntityFromIndex( entityIndex );
@@ -2259,56 +2356,92 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 							*( (EHANDLE *)pOutputData ) = CBaseEntity::Instance( pent );
 						else
 							*( (EHANDLE *)pOutputData ) = NULL;
+#endif
 						break;
 					case FIELD_ENTITY:
+#ifdef __PSP__
+						memcpy( &entityIndex, pInputData, 4 );
+						pent = EntityFromIndex( entityIndex );
+						if( pent )
+							eOffSet = OFFSET( pent );
+						else
+							eOffSet = 0;
+						memcpy( pOutputData, &eOffSet,  sizeof( EOFFSET ) );
+#else
 						entityIndex = *(int *)pInputData;
 						pent = EntityFromIndex( entityIndex );
 						if( pent )
 							*( (EOFFSET *)pOutputData ) = OFFSET( pent );
 						else
 							*( (EOFFSET *)pOutputData ) = 0;
+#endif
 						break;
 					case FIELD_VECTOR:
-						#if __VFP_FP__
+#if __VFP_FP__ || defined(__PSP__)
 						memcpy( pOutputData, pInputData, sizeof( Vector ) );
-						#else
+#else
 						( (float *)pOutputData )[0] = ( (float *)pInputData )[0];
 						( (float *)pOutputData )[1] = ( (float *)pInputData )[1];
 						( (float *)pOutputData )[2] = ( (float *)pInputData )[2];
-						#endif
+#endif
 						break;
 					case FIELD_POSITION_VECTOR:
-						#if  __VFP_FP__
+#if __VFP_FP__ || defined(__PSP__)
 						{
 							Vector tmp;
 							memcpy( &tmp, pInputData, sizeof( Vector ) );
 							tmp = tmp + position;
 							memcpy( pOutputData, &tmp, sizeof( Vector ) );
 						}
-						#else
+#else
 						( (float *)pOutputData )[0] = ( (float *)pInputData )[0] + position.x;
 						( (float *)pOutputData )[1] = ( (float *)pInputData )[1] + position.y;
 						( (float *)pOutputData )[2] = ( (float *)pInputData )[2] + position.z;
-						#endif
+#endif
 						break;
 					case FIELD_BOOLEAN:
 					case FIELD_INTEGER:
+#ifdef __PSP__
+						memcpy( pOutputData, pInputData, sizeof( int ) );
+#else
 						*( (int *)pOutputData ) = *(int *)pInputData;
+#endif
 						break;
 					case FIELD_SHORT:
+#ifdef __PSP__
+						memcpy( pOutputData, pInputData, sizeof( short ) );
+#else
 						*( (short *)pOutputData ) = *(short *)pInputData;
+#endif
 						break;
 					case FIELD_CHARACTER:
+#ifdef __PSP__
+						memcpy( pOutputData, pInputData, sizeof( char ) );
+#else
 						*( (char *)pOutputData ) = *(char *)pInputData;
+#endif
 						break;
 					case FIELD_POINTER:
+#ifdef __PSP__
+						memcpy( pOutputData, pInputData, sizeof( void * ) );
+#else
 						*( (void**)pOutputData ) = *(void **)pInputData;
+#endif
 						break;
 					case FIELD_FUNCTION:
+#ifdef __PSP__
+						if( ( (char *)pInputData )[0] == '\0' )
+							funcCb = 0;
+						else
+							funcCb = (void*)FUNCTION_FROM_NAME( (char *)pInputData );
+						memcpy( pOutputData, &funcCb, sizeof( void * )  );
+
+#else
 						if( ( (char *)pInputData )[0] == '\0' )
 							*( (void**)pOutputData ) = 0;
 						else
 							*( (void**)pOutputData ) = (void*)FUNCTION_FROM_NAME( (char *)pInputData );
+#endif
 						break;
 					default:
 						ALERT( at_error, "Bad field type\n" );
@@ -2370,7 +2503,7 @@ int CRestore::ReadFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *p
 		lastField = ReadField( pBaseData, pFields, fieldCount, lastField, header.size, m_pdata->pTokens[header.token], header.pData );
 		lastField++;
 	}
-	
+
 	return 1;
 }
 

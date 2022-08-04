@@ -1100,12 +1100,14 @@ end:
 
 void CHudSpectator::LoadMapSprites()
 {
+#ifndef __PSP__
 	// right now only support for one map layer
 	if( m_OverviewData.layers > 0 )
 	{
 		m_MapSprite = gEngfuncs.LoadMapSprite( m_OverviewData.layersImages[0] );
 	}
 	else
+#endif
 		m_MapSprite = NULL; // the standard "unkown map" sprite will be used instead
 }
 
