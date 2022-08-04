@@ -25,7 +25,6 @@ export PSP_DIR         = psp
 # PSPSDK
 export BUILD_PRX       = 1
 export PSP_FW_VERSION  = 660
-export PRX_EXPORTS     = $(SRC_DIR)/$(PSP_DIR)/exports.exp
 
 export USE_NEWLIB_LIBC = 1
 #export USE_PSPSDK_LIBC = 1
