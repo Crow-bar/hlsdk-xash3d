@@ -71,11 +71,12 @@ PSPEXPORTFUNWD( IN_ClientLookEvent );
 
 int module_start( SceSize arglen, void *argp )
 {
+	char *null_argv[] = { NULL };
 	void** exp = ( void** )(*( void** )argp );
 	*exp = PSP_ExportGetPtr();
 
 	if( __psp_libc_init != NULL )
-		__psp_libc_init( 0, NULL );
+		__psp_libc_init( 0, null_argv );
 	__do_global_ctors();
 
 	return 0;
