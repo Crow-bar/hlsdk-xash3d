@@ -16,4 +16,9 @@
 #endif
 #define DLLEXPORT EXPORT
 #define _DLLEXPORT EXPORT
+
+#ifdef __PSP__
+#include "pspexp.h"
+#endif
+
 #endif // EXPORTDEF_H
