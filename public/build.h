@@ -65,6 +65,7 @@ For more information, please refer to <http://unlicense.org/>
 #undef XASH_LITTLE_ENDIAN
 #undef XASH_MINGW
 #undef XASH_MIPS
+#undef XASH_PPC
 #undef XASH_MOBILE_PLATFORM
 #undef XASH_MSVC
 #undef XASH_NETBSD
@@ -74,6 +75,7 @@ For more information, please refer to <http://unlicense.org/>
 #undef XASH_RISCV_DOUBLEFP
 #undef XASH_RISCV_SINGLEFP
 #undef XASH_RISCV_SOFTFP
+#undef XASH_SERENITY
 #undef XASH_WIN32
 #undef XASH_WIN64
 #undef XASH_X86
@@ -124,6 +126,9 @@ For more information, please refer to <http://unlicense.org/>
 	#define XASH_LITTLE_ENDIAN 1
 #elif defined __HAIKU__
 	#define XASH_HAIKU 1
+	#define XASH_POSIX 1
+#elif defined __serenity__
+	#define XASH_SERENITY 1
 	#define XASH_POSIX 1
 #else
 #error "Place your operating system name here! If this is a mistake, try to fix conditions above and report a bug"
@@ -212,6 +217,11 @@ For more information, please refer to <http://unlicense.org/>
 	#endif // __SOFTFP__
 #elif defined __mips__
 	#define XASH_MIPS 1
+#elif defined __powerpc__
+	#define XASH_PPC 1
+	#if defined __powerpc64__
+		#define XASH_64BIT 1
+	#endif
 #elif defined __EMSCRIPTEN__
 	#define XASH_JS 1
 #elif defined __e2k__
