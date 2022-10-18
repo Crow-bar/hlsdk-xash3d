@@ -17,7 +17,7 @@ GNU General Public License for more details.
 #include "pspexp.h"
 
 PSP_MODULE_INFO( "server", 0, 1, 1 );
-PSP_HEAP_SIZE_KB( 128 );
+PSP_HEAP_SIZE_KB( 384 );
 PSP_NO_CREATE_MAIN_THREAD();
 
 void __do_global_dtors( void );

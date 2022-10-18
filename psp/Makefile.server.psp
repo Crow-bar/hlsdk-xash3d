@@ -130,11 +130,11 @@ INCDIR = $(SRC_DIR)/$(SERVER_DIR) \
          $(SRC_DIR)/$(GAME_SHARED_DIR) \
          $(SRC_DIR)/$(PSP_DIR)
 
-LIBS     = -lstdc++ -lm -lpspuser
+LIBS    = -lstdc++ -lm
 
 DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf \
 	-D_vsnprintf=vsnprintf -DCLIENT_WEAPONS=1 -DNO_VOICEGAMEMGR -D__PSP__
-CFLAGS  = -G0 -g -O3
+CFLAGS  = -G0 -g -Ofast
 #CFLAGS  = -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
 	-Werror=vla -Werror=tautological-compare -Werror=duplicated-cond \
 	-Werror=bool-compare -Werror=bool-operation -Wstrict-aliasing

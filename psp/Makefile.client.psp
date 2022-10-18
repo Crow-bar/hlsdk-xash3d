@@ -93,7 +93,7 @@ INCDIR = $(SRC_DIR)/$(COMMON_DIR) \
          $(SRC_DIR)/$(VGUI_DIR) \
          $(SRC_DIR)/$(PSP_DIR)
 
-LIBS   = -lstdc++ -lm -lpspuser
+LIBS    = -lstdc++ -lm
 
 DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf \
 	-D_vsnprintf=vsnprintf -DCLIENT_WEAPONS=1 -DCLIENT_DLL -D__PSP__
