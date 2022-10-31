@@ -1100,7 +1100,7 @@ end:
 
 void CHudSpectator::LoadMapSprites()
 {
-#ifndef __PSP__
+#if !XASH_PSP
 	// right now only support for one map layer
 	if( m_OverviewData.layers > 0 )
 	{

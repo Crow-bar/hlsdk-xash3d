@@ -107,7 +107,7 @@ typedef int BOOL;
 #if CLIENT_DLL
 #define LINK_ENTITY_TO_CLASS(mapClassName,DLLClassName)
 #else // CLIENT_DLL
-#ifdef __PSP__
+#if XASH_PSP
 #define LINK_ENTITY_TO_CLASS(mapClassName,DLLClassName) extern "C" EXPORT void mapClassName( entvars_t *pev ); PSPEXPORTFUN(mapClassName); void mapClassName( entvars_t *pev ) { GetClassPtr( (DLLClassName *)pev ); }
 #else
 #define LINK_ENTITY_TO_CLASS(mapClassName,DLLClassName) extern "C" EXPORT void mapClassName( entvars_t *pev ); void mapClassName( entvars_t *pev ) { GetClassPtr( (DLLClassName *)pev ); }

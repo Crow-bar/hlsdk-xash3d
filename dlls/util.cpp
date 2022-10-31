@@ -1940,7 +1940,7 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 			case FIELD_MODELNAME:
 			case FIELD_SOUNDNAME:
 			case FIELD_STRING:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 				{
 				string_t strval = ALLOC_STRING( pkvd->szValue );
 				memcpy( ( char * )pev + pField->fieldOffset, &strval, sizeof( string_t ) );
@@ -1951,7 +1951,7 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 				break;
 			case FIELD_TIME:
 			case FIELD_FLOAT:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 				{
 				float fval = atof( pkvd->szValue );
 				memcpy( (char *)pev + pField->fieldOffset, &fval, sizeof( float ) );
@@ -1961,7 +1961,7 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 #endif
 				break;
 			case FIELD_INTEGER:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 				{
 				int ival = atoi( pkvd->szValue );
 				memcpy( (char *)pev + pField->fieldOffset, &ival, sizeof( int ) );
@@ -2163,7 +2163,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 	Vector position;
 	edict_t	*pent;
 	char *pString;
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 	CBaseEntity	*cBaseEnt;
 	entvars_t	*entVars;
 	EOFFSET		eOffSet;
@@ -2196,7 +2196,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 					switch( pTest->fieldType )
 					{
 					case FIELD_TIME:
-#if __VFP_FP__  || defined(__PSP__) /* FIX Unaligned access! */
+#if __VFP_FP__  || XASH_PSP // unaligned access fix
 						memcpy( &timeData, pInputData, 4 );
 						// Re-base time variables
 						timeData += time;
@@ -2214,7 +2214,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 					case FIELD_MODELNAME:
 					case FIELD_SOUNDNAME:
 					case FIELD_STRING:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						// Skip over j strings
 						pString = (char *)pData;
 						for( stringCount = 0; stringCount < j; stringCount++ )
@@ -2277,7 +2277,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 #endif
 						break;
 					case FIELD_EVARS:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						memcpy( &entityIndex, pInputData, 4 );
 						pent = EntityFromIndex( entityIndex );
 						if( pent )
@@ -2295,7 +2295,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 #endif
 						break;
 					case FIELD_CLASSPTR:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						memcpy( &entityIndex, pInputData, 4 );
 						pent = EntityFromIndex( entityIndex );
 						if( pent )
@@ -2313,7 +2313,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 #endif
 						break;
 					case FIELD_EDICT:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						memcpy( &entityIndex, pInputData, 4 );
 						pent = EntityFromIndex( entityIndex );
 						memcpy(pOutputData, &pent,  sizeof( edict_t * ));
@@ -2325,7 +2325,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 						break;
 					case FIELD_EHANDLE:
 						// Input and Output sizes are different!
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						pOutputData = (char *)pOutputData + j * ( sizeof(EHANDLE) - gSizes[pTest->fieldType] );			
 						memcpy( &entityIndex, pInputData, 4 );
 						pent = EntityFromIndex( entityIndex );
@@ -2345,7 +2345,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 #endif
 						break;
 					case FIELD_ENTITY:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						memcpy( &entityIndex, pInputData, 4 );
 						pent = EntityFromIndex( entityIndex );
 						if( pent )
@@ -2363,7 +2363,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 #endif
 						break;
 					case FIELD_VECTOR:
-#if __VFP_FP__ || defined(__PSP__) /* FIX Unaligned access! */
+#if __VFP_FP__ || XASH_PSP // unaligned access fix
 						memcpy( pOutputData, pInputData, sizeof( Vector ) );
 #else
 						( (float *)pOutputData )[0] = ( (float *)pInputData )[0];
@@ -2372,7 +2372,7 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 #endif
 						break;
 					case FIELD_POSITION_VECTOR:
-#if __VFP_FP__ || defined(__PSP__) /* FIX Unaligned access! */
+#if __VFP_FP__ || XASH_PSP // unaligned access fix
 						{
 							Vector tmp;
 							memcpy( &tmp, pInputData, sizeof( Vector ) );
@@ -2387,35 +2387,35 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 						break;
 					case FIELD_BOOLEAN:
 					case FIELD_INTEGER:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						memcpy( pOutputData, pInputData, sizeof( int ) );
 #else						
 						*( (int *)pOutputData ) = *(int *)pInputData;
 #endif
 						break;
 					case FIELD_SHORT:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						memcpy( pOutputData, pInputData, sizeof( short ) );
 #else
 						*( (short *)pOutputData ) = *(short *)pInputData;
 #endif
 						break;
 					case FIELD_CHARACTER:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						memcpy( pOutputData, pInputData, sizeof( char ) );
 #else
 						*( (char *)pOutputData ) = *(char *)pInputData;
 #endif
 						break;
 					case FIELD_POINTER:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						memcpy( pOutputData, pInputData, sizeof( void * ) );
 #else
 						*( (void**)pOutputData ) = *(void **)pInputData;
 #endif	
 						break;
 					case FIELD_FUNCTION:
-#ifdef __PSP__ /* FIX Unaligned access! */
+#if XASH_PSP // unaligned access fix
 						if( ( (char *)pInputData )[0] == '\0' )
 							funcCb = 0;
 						else

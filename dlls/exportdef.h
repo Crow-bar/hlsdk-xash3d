@@ -17,7 +17,7 @@
 #define DLLEXPORT EXPORT
 #define _DLLEXPORT EXPORT
 
-#ifdef __PSP__
+#if XASH_PSP
 #include "pspexp.h"
 #endif
 

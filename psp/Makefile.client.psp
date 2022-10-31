@@ -96,7 +96,7 @@ INCDIR = $(SRC_DIR)/$(COMMON_DIR) \
 LIBS    = -lstdc++ -lm
 
 DEFINES = -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D_snprintf=snprintf \
-	-D_vsnprintf=vsnprintf -DCLIENT_WEAPONS=1 -DCLIENT_DLL -D__PSP__
+	-D_vsnprintf=vsnprintf -DCLIENT_WEAPONS=1 -DCLIENT_DLL -DXASH_PSP=1
 CFLAGS  = -G0 -g -Ofast
 #CFLAGS  = -fdiagnostics-color=always -Werror=return-type -Werror=parentheses \
 	-Werror=vla -Werror=tautological-compare -Werror=duplicated-cond \
