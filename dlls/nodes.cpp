@@ -2062,6 +2062,8 @@ void CTestHull::BuildNodeGraph( void )
 
 #if _MSC_VER
 #define SIZET_FMT "%Iu"
+#elif XASH_PSP
+#define SIZET_FMT "%lu"
 #else
 #define SIZET_FMT "%zu"
 #endif
